@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USB Bootable Creator</title>
+</head>
+<body>
+    <h1>Create Bootable USB</h1>
+    <label for="usbDrive">Enter USB Drive Letter (e.g., D: on Windows):</label>
+    <input type="text" id="usbDrive" placeholder="Enter drive letter" required>
+    <br><br>
+
+    <label for="isoFile">Select ISO File:</label>
+    <input type="file" id="isoFile" accept=".iso" required>
+    <br><br>
+
+    <button onclick="showInstructions()">Create Bootable USB</button>
+
+    <h2 id="instructionsHeader" style="display:none;">Instructions</h2>
+    <div id="instructions" style="display:none;">
+        <p>To create a bootable USB, follow these instructions:</p>
+        <ol>
+            <li>Open the command line (CMD) on your computer.</li>
+            <li>Navigate to the folder where you have the "usb_bootable_creator.py" script.</li>
+            <li>Run the script with the following command (replace <strong>usbDrive</strong> and <strong>isoFile</strong> with actual paths):</li>
+            <pre>python usb_bootable_creator.py --usbDrive <usbDrive> --isoFile <isoFile></pre>
+            <li>For example, on Windows, the command might look like:</li>
+            <pre>python usb_bootable_creator.py --usbDrive D: --isoFile path_to_iso.iso</pre>
+        </ol>
+        <p>Make sure to replace the placeholders with your actual USB drive letter and ISO file path!</p>
+    </div>
+
+    <script>
+        function showInstructions() {
+            const usbDrive = document.getElementById('usbDrive').value;
+            const isoFile = document.getElementById('isoFile').files[0];
+
+            if (!usbDrive || !isoFile) {
+                alert('Please provide both USB drive and ISO file.');
+                return;
+            }
+
+            // Display instructions to run the Python script
+            document.getElementById('instructionsHeader').style.display = 'block';
+            document.getElementById('instructions').style.display = 'block';
+
+            // You can optionally provide a link to download the Python script
+            const instructionsDiv = document.getElementById('instructions');
+            instructionsDiv.innerHTML += `<p>Download the Python script <a href="usb_bootable_creator.py" download>here</a>.</p>`;
+        }
+    </script>
+</body>
+</html>
