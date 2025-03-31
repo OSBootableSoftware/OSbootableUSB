@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>USB Bootable Creator</title>
+
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <h1>Create Bootable USB</h1>
+
     <label for="usbDrive">Enter USB Drive Letter (e.g., D: on Windows):</label>
     <input type="text" id="usbDrive" placeholder="Enter drive letter" required>
     <br><br>
@@ -14,6 +18,10 @@
     <label for="isoFile">Select ISO File:</label>
     <input type="file" id="isoFile" accept=".iso" required>
     <br><br>
+
+    <!-- Google reCAPTCHA -->
+    <div class="g-recaptcha" data-sitekey="6LfgdwUrAAAAAOTX0qtgPIG0NtOSIvbmCqzUl3X6"></div>
+    <br>
 
     <button onclick="showInstructions()">Create Bootable USB</button>
 
@@ -35,9 +43,15 @@
         function showInstructions() {
             const usbDrive = document.getElementById('usbDrive').value;
             const isoFile = document.getElementById('isoFile').files[0];
+            const recaptchaResponse = grecaptcha.getResponse();
 
             if (!usbDrive || !isoFile) {
                 alert('Please provide both USB drive and ISO file.');
+                return;
+            }
+
+            if (recaptchaResponse.length === 0) {
+                alert('Please complete the CAPTCHA.');
                 return;
             }
 
